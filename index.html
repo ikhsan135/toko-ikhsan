@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Toko Ikhsan | The Future of Retail - Sembako, Pulsa, Token Listrik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #00f2ff;
+            --secondary: #7000ff;
+            --bg: #020205;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg);
+            color: white;
+            overflow-x: hidden;
+            perspective: 1000px;
+            min-height: 100vh;
+        }
+
+        /* ========== ULTRA ANIMATED BG ========== */
+        .bg-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 242, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(112, 0, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.03) 0%, transparent 60%);
+            z-index: -3;
+            animation: meshPulse 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes meshPulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .grid-master {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 242, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.04) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg) translateY(-100px);
+            transform-origin: top;
+            animation: gridMoving 20s linear infinite;
+            z-index: -2;
+        }
+
+        @keyframes gridMoving {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 50px; }
+        }
+
+        /* Floating orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .orb-1 {
+            top: 10%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.2), transparent);
+            animation: float1 12s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            bottom: -15%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(112, 0, 255, 0.15), transparent);
+            animation: float2 15s ease-in-out infinite;
+        }
+
+        .orb-3 {
+            top: 40%;
+            left: 30%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 255, 200, 0.1), transparent);
+            animation: float3 18s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-60px, -40px) scale(1.2); }
+        }
+
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(40px, 60px); }
+        }
+
+        /* Stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.1; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        /* Shooting stars */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: linear-gradient(45deg, rgba(0, 242, 255, 0.8), transparent);
+            border-radius: 50%;
+            animation: shoot 4s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes shoot {
+            0% {
+                transform: translateX(0) translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-300px) translateY(300px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        /* ========== GLOWING CARDS ========== */
+        .premium-card {
+            background: rgba(15, 20, 30, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 242, 255, 0.1);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .premium-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .premium-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 242, 255, 0.15);
+        }
+
+        .premium-card:hover::before {
+            left: 100%;
+        }
+
+        /* Card spesial dengan glow */
+        .card-special {
+            background: linear-gradient(135deg, rgba(0, 242, 255, 0.12), rgba(112, 0, 255, 0.12));
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            animation: cardGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes cardGlow {
+            from { box-shadow: 0 0 5px rgba(0, 242, 255, 0.2); border-color: rgba(0, 242, 255, 0.3); }
+            to { box-shadow: 0 0 20px rgba(0, 242, 255, 0.5); border-color: rgba(0, 242, 255, 0.7); }
+        }
+
+        /* ========== NEON TEXT ========== */
+        .neon-title {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 30px rgba(0, 242, 255, 0.3));
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00f2ff, #7b61ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ========== BADGE STATUS ========== */
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #00ff88;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #00ff88;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        /* ========== BUTTON STYLE ========== */
+        .btn-wa {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            transition: all 0.2s ease;
+        }
+
+        .btn-wa:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-map {
+            background: linear-gradient(135deg, #ffffff, #e0e0e0);
+            transition: all 0.2s ease;
+        }
+
+        .btn-map:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-press:active {
+            transform: scale(0.96);
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #00f2ff, #7b61ff);
+            border-radius: 10px;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        .container-custom {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (max-width: 768px) {
+            .neon-title {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .neon-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        .icon-hover {
+            transition: all 0.3s ease;
+        }
+
+        .premium-card:hover .icon-hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Fade in animation */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .premium-card {
+            animation: fadeInUp 0.5s ease backwards;
+        }
+
+        /* ========== ANIMASI BARU UNTUK INFO TOKO ========== */
+        @keyframes glowPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 8px rgba(6, 182, 212, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+            }
+        }
+
+        @keyframes gentleBounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-3px);
+            }
+        }
+
+        @keyframes iconSpin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-fade-up {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .animate-glow-pulse {
+            animation: glowPulse 2s infinite;
+        }
+
+        .animate-bounce-soft {
+            animation: gentleBounce 1.5s ease-in-out infinite;
+        }
+
+        .animate-spin-slow {
+            animation: iconSpin 6s linear infinite;
+        }
+
+        .animate-slide-left {
+            animation: slideInLeft 0.4s ease forwards;
+        }
+
+        .animate-slide-right {
+            animation: slideInRight 0.4s ease forwards;
+        }
+
+        .hover-grow {
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+        .hover-grow:hover {
+            transform: scale(1.02);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .badge-pulse {
+            animation: glowPulse 1.8s infinite;
+        }
+
+        /* ========== FIX: BOTTOM SPACING AGAR TIDAK KETUTUPAN ========== */
+        .main-content {
+            padding-bottom: 180px;
+        }
+
+        @media (max-width: 640px) {
+            .main-content {
+                padding-bottom: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Animations -->
+    <div class="bg-mesh"></div>
+    <div class="grid-master"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="stars" id="stars"></div>
+    
+    <!-- Shooting Stars -->
+    <div class="shooting-star" style="top: 10%; left: 80%; animation-delay: 0s;"></div>
+    <div class="shooting-star" style="top: 20%; left: 70%; animation-delay: 2s;"></div>
+    <div class="shooting-star" style="top: 30%; left: 85%; animation-delay: 4s;"></div>
+    <div class="shooting-star" style="top: 15%; left: 60%; animation-delay: 1s;"></div>
+    <div class="shooting-star" style="top: 40%; left: 75%; animation-delay: 3s;"></div>
+
+    <!-- Main Content dengan padding bottom yang cukup -->
+    <main class="relative z-10 main-content">
+        
+        <!-- Header Premium -->
+        <div class="container-custom pt-8 pb-6 text-center">
+            <!-- Logo -->
+            <div class="flex justify-center mb-4">
+                <div class="w-20 h-20 rounded-full bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center shadow-2xl">
+                    <span class="text-3xl font-black text-white drop-shadow-lg">IK</span>
+                </div>
+            </div>
+            
+            <!-- Status Badge -->
+            <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-4">
+                <div class="status-dot"></div>
+                <span class="text-[10px] font-bold tracking-widest uppercase text-cyan-400">Online • Wanajaya</span>
+            </div>
+            
+            <!-- Title -->
+            <h1 class="neon-title leading-none mb-3">TOKO <span class="gradient-text">IKHSAN</span></h1>
+            
+            <!-- Slogan -->
+            <p class="text-base font-semibold mt-2 bg-gradient-to-r from-cyan-300 via-white to-purple-300 bg-clip-text text-transparent">
+                ❄️ "Belanja Ber-AC, Harga Bersahabat" ❄️
+            </p>
+            <p class="text-gray-400 text-sm mt-1">✨ Bukan sekadar toko. Tapi rasa nyaman. ✨</p>
+            
+            <!-- Badge AC Premium -->
+            <div class="flex justify-center mt-4">
+                <span class="card-special text-[10px] font-bold px-4 py-2 rounded-full text-cyan-200 flex items-center gap-2">
+                    <i class="fas fa-wind text-sm"></i> Ruang Ber-AC Full 
+                    <i class="fas fa-snowflake text-xs text-blue-300"></i>
+                    <i class="fas fa-temperature-low text-xs"></i>
+                </span>
+            </div>
+        </div>
+
+        <!-- Kebutuhan Pokok & Rumah Tangga -->
+        <div class="container-custom space-y-8">
+            <div>
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                    <i class="fas fa-home text-cyan-400"></i> Kebutuhan Pokok & Rumah Tangga
+                </h2>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="premium-card p-4 rounded-xl">
+                        <div class="icon-hover text-2xl mb-2">🌾</div>
+                        <h3 class="font-bold text-sm">Sembako Lengkap</h3>
+                        <p class="text-[9px] text-gray-400 mt-1">Beras premium, minyak goreng, gula, telur, tepung</p>
+                    </div>
+                    <div class="premium-card p-4 rounded-xl">
+                        <div class="icon-hover text-2xl mb-2">🧴</div>
+                        <h3 class="font-bold text-sm">Perlengkapan Mandi</h3>
+                        <p class="text-[9px] text-gray-400 mt-1">Sabun, sampo, deterjen, pasta gigi, pewangi</p>
+                    </div>
+                    <div class="premium-card p-4 rounded-xl">
+                        <div class="icon-hover text-2xl mb-2">☕</div>
+                        <h3 class="font-bold text-sm">Kopi & Minuman</h3>
+                        <p class="text-[9px] text-gray-400 mt-1">Kapal api, good day, nescafe, teh, susu</p>
+                    </div>
+                    <div class="premium-card p-4 rounded-xl">
+                        <div class="icon-hover text-2xl mb-2">🍪</div>
+                        <h3 class="font-bold text-sm">Snack & Cemilan</h3>
+                        <p class="text-[9px] text-gray-400 mt-1">Biskuit, wafer, ciki, jelly, jajanan</p>
+                    </div>
+                    <div class="premium-card p-4 rounded-xl">
+                        <div class="icon-hover text-2xl mb-2">🥫</div>
+                        <h3 class="font-bold text-sm">Makanan Kaleng</h3>
+                        <p class="text-[9px] text-gray-400 mt-1">Sarden, kornet, mi instan, bumbu masak</p>
+                    </div>
+                    <div class="premium-card p-4 rounded-xl">
+                        <div class="icon-hover text-2xl mb-2">🧻</div>
+                        <h3 class="font-bold text-sm">Perlengkapan Rumah</h3>
+                        <p class="text-[9px] text-gray-400 mt-1">Tisu, pembalut, popok, lilin, korek api</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Layanan Digital -->
+            <div>
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                    <i class="fas fa-mobile-alt text-purple-400"></i> Layanan Digital 24 Jam
+                </h2>
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="premium-card p-3 rounded-xl text-center">
+                        <i class="fas fa-bolt text-yellow-400 text-xl mb-1 icon-hover"></i>
+                        <h3 class="font-bold text-[10px]">Token Listrik</h3>
+                        <p class="text-[8px] text-gray-500">PLN Prabayar</p>
+                    </div>
+                    <div class="premium-card p-3 rounded-xl text-center">
+                        <i class="fas fa-mobile-alt text-green-400 text-xl mb-1 icon-hover"></i>
+                        <h3 class="font-bold text-[10px]">Pulsa All Ops</h3>
+                        <p class="text-[8px] text-gray-500">Telkomsel, XL, Tri</p>
+                    </div>
+                    <div class="premium-card p-3 rounded-xl text-center">
+                        <i class="fas fa-wifi text-blue-400 text-xl mb-1 icon-hover"></i>
+                        <h3 class="font-bold text-[10px]">Paket Data</h3>
+                        <p class="text-[8px] text-gray-500">Kuota murah</p>
+                    </div>
+                    <div class="premium-card p-3 rounded-xl text-center">
+                        <i class="fas fa-water text-cyan-400 text-xl mb-1 icon-hover"></i>
+                        <h3 class="font-bold text-[10px]">PDAM & BPJS</h3>
+                        <p class="text-[8px] text-gray-500">Bayar tagihan</p>
+                    </div>
+                    <div class="premium-card p-3 rounded-xl text-center">
+                        <i class="fas fa-credit-card text-orange-400 text-xl mb-1 icon-hover"></i>
+                        <h3 class="font-bold text-[10px]">Listrik Pasca</h3>
+                        <p class="text-[8px] text-gray-500">Tagihan bulanan</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top-Up & Tarik Tunai -->
+            <div>
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                    <i class="fas fa-wallet text-cyan-300"></i> Top-Up & Tarik Tunai
+                </h2>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="premium-card p-4 rounded-xl border-cyan-500/30 bg-gradient-to-br from-cyan-500/10 to-transparent">
+                        <i class="fas fa-wallet text-cyan-400 text-2xl mb-2 icon-hover"></i>
+                        <h3 class="font-bold text-sm">Top-Up E-Wallet</h3>
+                        <p class="text-[9px] text-gray-400 mt-1">Dana, OVO, GoPay, ShopeePay, LinkAja</p>
+                    </div>
+                    <div class="premium-card p-4 rounded-xl border-purple-500/30 bg-gradient-to-br from-purple-500/10 to-transparent">
+                        <i class="fas fa-money-bill-transfer text-purple-400 text-2xl mb-2 icon-hover"></i>
+                        <h3 class="font-bold text-sm">Tarik Tunai</h3>
+                        <p class="text-[9px] text-gray-400 mt-1">Saldo e-wallet → Uang cash</p>
+                    </div>
+                </div>
+                <div class="mt-3 text-center bg-white/5 backdrop-blur-sm rounded-xl p-2 border border-white/10">
+                    <p class="text-[10px]"><i class="fas fa-receipt text-cyan-400 mr-1"></i> Bayar Listrik Pasca, Internet, PDAM</p>
+                </div>
+            </div>
+
+            <!-- Info Toko - Premium dengan Animasi (TIDAK KETUTUPAN LAGI) -->
+            <div class="premium-card p-5 rounded-2xl animate-fade-up mb-6">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="animate-slide-left">
+                        <h3 class="font-bold text-lg flex items-center gap-2">
+                            <i class="fas fa-store text-cyan-400 animate-bounce-soft"></i> Toko Ikhsan
+                        </h3>
+                        <p class="text-[10px] text-gray-400 mt-1">Belanja nyaman, sejuk, dan ramah kantong</p>
+                    </div>
+                    <div class="flex gap-2 animate-slide-right">
+                        <span class="px-2 py-1 bg-green-500/20 text-green-400 text-[9px] font-bold rounded-lg border border-green-500/30 badge-pulse">BUKA</span>
+                        <span class="px-2 py-1 bg-cyan-500/20 text-cyan-400 text-[9px] font-bold rounded-lg border border-cyan-500/30 hover:bg-cyan-500/30 transition-all duration-300"><i class="fas fa-wind animate-spin-slow"></i> AC</span>
+                    </div>
+                </div>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3 p-2 rounded-lg bg-white/5 hover-grow cursor-pointer transition-all duration-300">
+                        <i class="fas fa-phone-alt text-cyan-400 text-sm animate-bounce-soft"></i>
+                        <span class="text-gray-300 text-sm font-medium">0813-8538-7981</span>
+                        <button onclick="copyPhone(event)" class="ml-auto text-[9px] bg-white/10 px-2 py-1 rounded-lg hover:bg-cyan-500/20 hover:text-cyan-300 transition-all duration-200 hover:shadow-lg hover:shadow-cyan-500/20">
+                            <i class="far fa-copy"></i> Salin
+                        </button>
+                    </div>
+                    <div class="flex items-start gap-3 p-2 rounded-lg bg-white/5 hover-grow transition-all duration-300">
+                        <i class="fas fa-map-marker-alt text-purple-400 text-sm mt-0.5 animate-bounce-soft"></i>
+                        <span class="text-gray-300 text-[11px] leading-relaxed">Pesona Gading Cibitung No.5 Block F1, Bekasi</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-2 rounded-lg bg-white/5 hover-grow transition-all duration-300">
+                        <i class="far fa-clock text-cyan-400 text-sm"></i>
+                        <span class="text-gray-300 text-[11px]">Senin - Minggu | 07.00 - 21.00 (AC full)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Fixed Bottom Navigation -->
+    <div class="fixed bottom-0 left-0 w-full p-4 bg-gradient-to-t from-[#020205] via-[#020205]/95 to-transparent backdrop-blur-md z-20">
+        <div class="container-custom">
+            <div class="grid grid-cols-2 gap-3">
+                <a href="https://wa.me/6281385387981?text=Halo+Toko+Ikhsan,+mau+tanya+stok" target="_blank" class="btn-wa flex items-center justify-center gap-2 py-3.5 rounded-xl text-black font-bold text-sm btn-press">
+                    <i class="fab fa-whatsapp text-lg"></i> Chat Admin
+                </a>
+                <button id="mapsBtn" class="btn-map flex items-center justify-center gap-2 py-3.5 rounded-xl text-black font-bold text-sm btn-press">
+                    <i class="fas fa-location-arrow"></i> Buka Maps
+                </button>
+            </div>
+            <div class="grid grid-cols-4 gap-2 mt-2">
+                <button onclick="quickOrder('Token Listrik')" class="premium-card p-2 rounded-lg text-center btn-press">
+                    <i class="fas fa-bolt text-yellow-400 text-xs"></i>
+                    <p class="text-[8px] font-semibold mt-0.5">Token</p>
+                </button>
+                <button onclick="quickOrder('Pulsa')" class="premium-card p-2 rounded-lg text-center btn-press">
+                    <i class="fas fa-mobile-alt text-green-400 text-xs"></i>
+                    <p class="text-[8px] font-semibold mt-0.5">Pulsa</p>
+                </button>
+                <button onclick="quickOrder('Paket Data')" class="premium-card p-2 rounded-lg text-center btn-press">
+                    <i class="fas fa-wifi text-blue-400 text-xs"></i>
+                    <p class="text-[8px] font-semibold mt-0.5">Paket Data</p>
+                </button>
+                <button onclick="quickOrder('Topup E-Wallet')" class="premium-card p-2 rounded-lg text-center btn-press">
+                    <i class="fas fa-wallet text-purple-400 text-xs"></i>
+                    <p class="text-[8px] font-semibold mt-0.5">E-Wallet</p>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-32 left-1/2 -translate-x-1/2 bg-gradient-to-r from-cyan-900/90 to-purple-900/90 backdrop-blur-md px-5 py-2.5 rounded-full text-xs text-white font-medium hidden z-50 shadow-xl border border-cyan-500/30"></div>
+
+    <script>
+        // ========== GENERATE STARS ==========
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 120; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2 + 1;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.setProperty('--duration', Math.random() * 3 + 1 + 's');
+            star.style.animationDelay = Math.random() * 5 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // ========== FUNCTIONS ==========
+        const mapsUrl = "https://maps.app.goo.gl/SUgkUeWDcLz2c4UT9";
+        
+        document.getElementById('mapsBtn').onclick = () => {
+            if (mapsUrl && mapsUrl !== '#') {
+                window.open(mapsUrl, '_blank');
+            } else {
+                showToast('📍 Link Maps belum tersedia, hubungi admin');
+            }
+        };
+        
+        function quickOrder(item) {
+            const wa = "6281385387981";
+            const msg = `Halo Kak, saya mau order ${item} di Toko Ikhsan (ruang AC). Apakah tersedia?`;
+            window.open(`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`, '_blank');
+            showToast(`✅ Order ${item} - Chat WhatsApp dibuka`);
+        }
+        
+        function copyPhone(event) {
+            // Animasi feedback saat copy
+            const btn = event.currentTarget;
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+            btn.classList.add('bg-green-500/30', 'border-green-500/50');
+            
+            // Copy ke clipboard
+            navigator.clipboard.writeText('0813-8538-7981');
+            
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.classList.remove('bg-green-500/30', 'border-green-500/50');
+            }, 1500);
+        }
+        
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 2000);
+        }
+    </script>
+</body>
+</html>
